@@ -1,0 +1,30 @@
+# Gradle
+.gradle
+build
+**/build/
+!gradle/wrapper/**
+
+# IDEs and tools
+.idea
+*.iml
+*.ipr
+*.iws
+.vscode
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+logs
+*.log
+tmp
+*.tmp
+
+# Git
+.git
+.gitignore
+
+# Node (utils dir)
+utils/node_modules
+utils/dist
