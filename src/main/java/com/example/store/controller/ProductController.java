@@ -7,7 +7,6 @@ import com.example.store.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,19 +20,18 @@ public class ProductController {
 
     @GetMapping
     public List<ProductDTO> getAllProducts() {
-        return productMapper.productsToProductDTOs(productService.getAll());
+        return productMapper.productsToProductDTOs(productService.findAllWithOrders());
     }
 
     @GetMapping("/{id}")
     public ProductDTO getProductById(@PathVariable Long id) {
-        Product product = productService.getById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
+        Product product = productService.getByIdWithOrdersOrThrow(id);
         return productMapper.productToProductDTO(product);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDTO createProduct(@RequestBody Product product) {
-        return productMapper.productToProductDTO(productService.save(product));
+        return productMapper.productToProductDTO(productService.create(product));
     }
 }
